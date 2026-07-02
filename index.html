@@ -41,14 +41,21 @@
   <section class="hero" id="hero">
     <div class="hero-ring" aria-hidden="true">
       <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="300" cy="300" r="280" stroke="url(#ringGrad)" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="300" cy="300" r="220" stroke="url(#ringGrad)" stroke-width="1" opacity="0.3"/>
-        <circle cx="300" cy="300" r="340" stroke="url(#ringGrad)" stroke-width="0.75" opacity="0.2"/>
+        <circle cx="300" cy="300" r="280" stroke="url(#ringGrad)" stroke-width="2.5" opacity="0.9" filter="url(#ringBloom)"/>
+        <circle cx="300" cy="300" r="220" stroke="url(#ringGrad)" stroke-width="1.75" opacity="0.7" filter="url(#ringBloom)"/>
+        <circle cx="300" cy="300" r="340" stroke="url(#ringGrad)" stroke-width="1.5" opacity="0.55" filter="url(#ringBloom)"/>
         <defs>
           <linearGradient id="ringGrad" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
             <stop stop-color="#2E6FF2"/>
-            <stop offset="1" stop-color="#F5A623" stop-opacity="0"/>
+            <stop offset="1" stop-color="#F5A623" stop-opacity="0.35"/>
           </linearGradient>
+          <filter id="ringBloom" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
       </svg>
     </div>
@@ -56,7 +63,13 @@
     <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
 
     <div class="hero-inner">
-      <h1 class="hero-word" id="heroWord">AMBER</h1>
+      <div class="hero-frame">
+        <span class="hero-corner hero-corner-tl" aria-hidden="true"></span>
+        <span class="hero-corner hero-corner-tr" aria-hidden="true"></span>
+        <span class="hero-corner hero-corner-bl" aria-hidden="true"></span>
+        <span class="hero-corner hero-corner-br" aria-hidden="true"></span>
+        <h1 class="hero-word" id="heroWord">AMBER</h1>
+      </div>
 
       <div class="hero-product" id="heroProduct">
         <img id="heroProductImg" src="images/product-amber.png" alt="ไฟหมุนเตือนสัญญาณ Big One Electric สีเหลือง" onerror="this.classList.add('img-fallback')">
