@@ -62,6 +62,18 @@
 
     <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
 
+    <div class="hero-ghost-wrap" aria-hidden="true">
+      <div class="hero-ghost" id="heroGhost">
+        <img class="hero-ghost-img hero-ghost-1" src="images/product-bg-amber.png" alt="" onerror="this.onerror=null; this.src='images/product-amber.png';">
+        <img class="hero-ghost-img hero-ghost-2" src="images/product-bg-red.png" alt="" onerror="this.onerror=null; this.src='images/product-red.png';">
+        <img class="hero-ghost-img hero-ghost-3" src="images/product-bg-blue.png" alt="" onerror="this.onerror=null; this.src='images/product-blue.png';">
+        <img class="hero-ghost-img hero-ghost-4" src="images/product-bg-green.png" alt="" onerror="this.onerror=null; this.src='images/product-green.png';">
+      </div>
+    </div>
+
+    <span class="hero-badge">ENGINEERED FOR SAFETY</span>
+    <span class="hero-vertical-label" aria-hidden="true">ROTARY WARNING LIGHT</span>
+
     <div class="hero-inner">
       <div class="hero-frame">
         <span class="hero-corner hero-corner-tl" aria-hidden="true"></span>
@@ -72,7 +84,7 @@
       </div>
 
       <div class="hero-product" id="heroProduct">
-        <img id="heroProductImg" src="images/product-amber.png" alt="ไฟหมุนเตือนสัญญาณ Big One Electric สีเหลือง" onerror="this.classList.add('img-fallback')">
+        <img id="heroProductImg" class="is-floating" src="images/product-amber.png" alt="ไฟหมุนเตือนสัญญาณ Big One Electric สีเหลือง" onerror="this.classList.add('img-fallback')">
       </div>
 
       <p class="hero-tagline">
@@ -83,6 +95,12 @@
 
       <a href="#products" class="btn btn-primary hero-cta">ดูสินค้าทั้งหมด →</a>
 
+      <div class="hero-stat">
+        <!-- TODO: ยืนยันตัวเลขชั่วโมงจริงจากเจ้าของแบรนด์ก่อน publish ตัวเลขนี้เป็น placeholder -->
+        <span class="hero-stat-num">30,000+ HRS</span>
+        <span class="hero-stat-label">อายุการใช้งาน LED ต่อเนื่อง</span>
+      </div>
+
       <div class="hero-swatches" id="heroSwatches" role="group" aria-label="เลือกสีสินค้า">
         <button type="button" class="swatch swatch-amber is-active" data-color="amber" aria-label="สีเหลืองอำพัน"></button>
         <button type="button" class="swatch swatch-red" data-color="red" aria-label="สีแดง"></button>
@@ -90,6 +108,12 @@
         <button type="button" class="swatch swatch-green" data-color="green" aria-label="สีเขียว"></button>
       </div>
     </div>
+
+    <a href="#products" class="hero-scroll-indicator" aria-label="เลื่อนลงเพื่อดูสินค้า">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+        <path d="M5 8l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </section>
 
   <!-- TRUST / PROOF -->

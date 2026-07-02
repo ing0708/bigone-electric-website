@@ -103,7 +103,10 @@
     root.style.setProperty('--accent', state.hex);
     heroWord.textContent = state.word;
 
-    // Outgoing product image slides/fades out.
+    // Idle float and the leave/enter transform both animate `transform`,
+    // so the float animation is paused for the outgoing image and only
+    // resumed on the new active image once the swap settles.
+    activeImg.classList.remove('is-floating');
     activeImg.classList.add(leavingClass);
 
     // Incoming product image is created off-screen, then released on the
@@ -128,6 +131,7 @@
         activeImg.parentNode.removeChild(activeImg);
       }
       nextImg.id = 'heroProductImg';
+      nextImg.classList.add('is-floating');
       activeImg = nextImg;
       currentColor = colorKey;
       isAnimating = false;
@@ -140,11 +144,64 @@
     });
   }
 
+  /* ---------------------------------------------------------------------
+     Auto-cycle: if the user hasn't picked a color within AUTO_START_DELAY,
+     cycle through the palette on a timer. Any manual swatch click stops
+     it for good — it never resumes for the rest of the session.
+     --------------------------------------------------------------------- */
+  var AUTO_START_DELAY = 5000;
+  var AUTO_CYCLE_INTERVAL = 4500;
+  var autoCycleTimer = null;
+  var autoCycleActive = true;
+
+  function scheduleAutoCycle(delay) {
+    autoCycleTimer = window.setTimeout(function () {
+      if (!autoCycleActive) return;
+      var nextIndex = (ORDER.indexOf(currentColor) + 1) % ORDER.length;
+      applyColor(ORDER[nextIndex]);
+      scheduleAutoCycle(AUTO_CYCLE_INTERVAL);
+    }, delay);
+  }
+
+  function stopAutoCycle() {
+    autoCycleActive = false;
+    window.clearTimeout(autoCycleTimer);
+  }
+
   if (swatches) {
     swatches.querySelectorAll('.swatch').forEach(function (btn) {
       btn.addEventListener('click', function () {
+        stopAutoCycle();
         applyColor(btn.getAttribute('data-color'));
       });
+    });
+  }
+
+  scheduleAutoCycle(AUTO_START_DELAY);
+
+  /* ---------------------------------------------------------------------
+     Hero: mouse parallax on background layers (ring + ghost cluster
+     only). The main product stays put so it doesn't fight the idle
+     float / color-swap transforms. Skipped entirely on touch devices.
+     --------------------------------------------------------------------- */
+  var heroSection = document.getElementById('hero');
+  var heroRingEl = heroSection ? heroSection.querySelector('.hero-ring') : null;
+  var heroGhostEl = document.getElementById('heroGhost');
+  var PARALLAX_MAX = 15;
+
+  if (heroSection && heroRingEl && heroGhostEl && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    heroSection.addEventListener('mousemove', function (e) {
+      var rect = heroSection.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width - 0.5;
+      var relY = (e.clientY - rect.top) / rect.height - 0.5;
+      var px = relX * 2 * PARALLAX_MAX;
+      var py = relY * 2 * PARALLAX_MAX;
+      heroRingEl.style.transform = 'translate(calc(-50% + ' + px + 'px), calc(-50% + ' + py + 'px))';
+      heroGhostEl.style.transform = 'translate(' + px * 0.6 + 'px, ' + py * 0.6 + 'px)';
+    });
+    heroSection.addEventListener('mouseleave', function () {
+      heroRingEl.style.transform = 'translate(-50%, -50%)';
+      heroGhostEl.style.transform = 'translate(0, 0)';
     });
   }
 })();

@@ -221,6 +221,7 @@ img.img-fallback::before { content: none; }
   width: min(900px, 130vw);
   height: min(900px, 130vw);
   transform: translate(-50%, -50%);
+  transition: transform 0.3s ease-out;
   pointer-events: none;
 }
 .hero-ring svg { width: 100%; height: 100%; }
@@ -234,6 +235,83 @@ img.img-fallback::before { content: none; }
   filter: blur(6px);
   transition: background 0.7s ease;
   pointer-events: none;
+}
+
+/* Ghost layer: static decorative cluster of upright product photos,
+   always behind the main product, never reacts to color switching. */
+.hero-ghost-wrap {
+  position: absolute;
+  right: 3%;
+  top: 60%;
+  transform: translateY(-50%);
+  width: min(360px, 40vw);
+  height: min(360px, 40vw);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-ghost {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease-out;
+}
+.hero-ghost-img {
+  position: absolute;
+  width: 52%;
+  height: 52%;
+  object-fit: contain;
+  opacity: 0.16;
+  filter: blur(2.5px);
+}
+.hero-ghost-1 { top: 0; left: 8%; }
+.hero-ghost-2 { top: 18%; left: 42%; }
+.hero-ghost-3 { top: 46%; left: 2%; }
+.hero-ghost-4 { top: 40%; left: 46%; }
+
+.hero-badge {
+  position: absolute;
+  top: calc(var(--nav-h) + 18px);
+  right: 32px;
+  z-index: 3;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.hero-vertical-label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-family: var(--font-head);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  animation: heroChevronPulse 1.8s ease-in-out infinite;
+}
+@keyframes heroChevronPulse {
+  0%, 100% { opacity: 0.25; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-indicator { animation: none; opacity: 0.6; }
 }
 
 .hero-inner {
@@ -316,6 +394,19 @@ img.img-fallback::before { content: none; }
 .hero-product img.is-entering-left { transform: translateX(-120%) rotate(-30deg); opacity: 0; }
 .hero-product img.is-entering-right { transform: translateX(120%) rotate(30deg); opacity: 0; }
 
+/* Idle float: only runs at rest. Disabled by JS during the color-swap
+   transition so the two transform animations never fight each other. */
+.hero-product img.is-floating {
+  animation: idleFloat 3s ease-in-out infinite;
+}
+@keyframes idleFloat {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-8px) rotate(-8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-product img.is-floating { animation: none; }
+}
+
 .hero-tagline {
   align-self: flex-end;
   text-align: right;
@@ -337,6 +428,30 @@ img.img-fallback::before { content: none; }
 }
 
 .hero-cta { margin-top: 18px; }
+
+.hero-stat {
+  position: absolute;
+  left: 32px;
+  bottom: 92px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none;
+}
+.hero-stat-num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  transition: color 0.7s ease;
+}
+.hero-stat-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-muted);
+}
 
 .hero-swatches {
   position: absolute;
@@ -779,9 +894,13 @@ img.img-fallback::before { content: none; }
   .nav-toggle { display: flex; }
 
   .hero-tagline { align-self: center; text-align: center; }
-  .hero-swatches { position: static; margin-top: 32px; }
+  .hero-stat { position: static; align-items: center; margin-top: 20px; }
+  .hero-swatches { position: static; margin-top: 20px; }
   .hero-inner { padding-top: 20px; }
   .hero-product { margin-top: -70px; margin-bottom: 0; }
+  .hero-badge,
+  .hero-vertical-label { display: none; }
+  .hero-ghost-wrap { width: min(220px, 46vw); height: min(220px, 46vw); top: 66%; }
 
   .timeline-item {
     grid-template-columns: 1fr;
