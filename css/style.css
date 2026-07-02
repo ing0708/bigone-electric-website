@@ -257,16 +257,16 @@ img.img-fallback::before { content: none; }
 }
 .hero-ghost-img {
   position: absolute;
-  width: 52%;
-  height: 52%;
+  width: 34%;
+  height: 34%;
   object-fit: contain;
   opacity: 0.16;
   filter: blur(2.5px);
 }
-.hero-ghost-1 { top: 0; left: 8%; }
-.hero-ghost-2 { top: 18%; left: 42%; }
-.hero-ghost-3 { top: 46%; left: 2%; }
-.hero-ghost-4 { top: 40%; left: 46%; }
+.hero-ghost-1 { top: 0; left: 4%; }
+.hero-ghost-2 { top: 14%; left: 34%; }
+.hero-ghost-3 { top: 40%; left: 8%; }
+.hero-ghost-4 { top: 54%; left: 38%; }
 
 .hero-badge {
   position: absolute;
