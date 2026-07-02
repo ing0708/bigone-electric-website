@@ -30,8 +30,19 @@ Place files under `images/` using these exact names:
 | `about-header.jpg` | About Us opening background |
 | `about-timeline-1.jpg` … `-4.jpg` | Timeline illustrations (1992 / 2005 / 2020 / 2023–2025) |
 | `about-standards.jpg` | Close-up of electrical/control work |
-| `products/*.jpg` (11 files) | One image per product category — see `index.html` for exact filenames |
+| `products/*.jpg` (12 files) | One image per product category — see `index.html` for exact filenames |
 | `og-share.jpg` | 1200×630 social share preview |
+
+## Products
+
+The product grid mirrors the 12 categories from the printed catalog
+(`Big One Electric` PDF): Rotary Warning Light, Terminal Blocks Rail Type
+(TR/TBR), Cable Glands, Terminal Block (TB), Grounding Bus-Bar, Pressure
+Clips, Bus Bar Insulators, DIN Rail, Pulley for Electric Cable, Liquid
+Level Relay, Current Transformers (CT), and Fuse E16 Base. Per the design
+brief this is intentionally a spec/price-free grid — pricing and model
+codes (e.g. TR10–TR400, MSQ-40/60/100/130) live in the catalog, not the
+website.
 
 ## Notes
 
